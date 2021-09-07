@@ -8,7 +8,7 @@ public class frame extends JFrame{
 		this.setTitle("Projeto de LP II");
 		this.setSize(600,500);
 		this.getContentPane().setBackground(new Color (136, 229, 199));
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
 }

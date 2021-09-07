@@ -1,6 +1,5 @@
 package projetoap3;
 
-
 import javax.swing.JFrame;
 
 
@@ -11,3 +10,5 @@ public class Main extends JFrame{
 		menu principal = new menu();
 	}
 }
+
+

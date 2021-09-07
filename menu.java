@@ -46,15 +46,12 @@ public class menu extends JFrame implements ActionListener{
 	Menu.add(abrirarq);
 	Menu.setVisible(true);
 	
-	
-	System.out.println("open!");
-	
 }
 
 @Override
 public void actionPerformed(ActionEvent e) {
 	if(e.getSource() == criararq) {
-		System.out.println("Criar!");
+		editor novo = new editor();
 	}
 	if(e.getSource() == abrirarq) {
 		System.out.println("Abrir!");
