@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Scanner;
-
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -18,16 +17,21 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTree;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
-public class editor extends JFrame implements ActionListener {
+public class editor extends JPanel implements ActionListener {
 	
 	JTextArea area;
 	JScrollPane pane;
 	JMenuItem abrir;
+	JMenuItem salvarc;
 	JMenuItem salvar;
 	JMenuItem fechar;
+	File atual;
 
 	editor(){
 		frame Editor = new frame();
@@ -49,22 +53,26 @@ public class editor extends JFrame implements ActionListener {
 		JMenuBar settings = new JMenuBar();
 		JMenu arquivo = new JMenu("Arquivo");
 		abrir = new JMenuItem("Abrir");
+		salvarc = new JMenuItem("Salvar Como");
 		salvar = new JMenuItem("Salvar");
 		fechar = new JMenuItem("Fechar");
 
 		abrir.addActionListener(this);
+		salvarc.addActionListener(this);
 		salvar.addActionListener(this);
 		fechar.addActionListener(this);
 
 		arquivo.add(abrir);
+		arquivo.add(salvarc);
 		arquivo.add(salvar);
 		arquivo.add(fechar);
 		settings.add(arquivo);
-
+		
 		Editor.setLayout(null);
 		Editor.add(panel);
 		Editor.setJMenuBar(settings);
 		Editor.setVisible(true);
+
 	}
 
 	@Override
@@ -79,7 +87,7 @@ public class editor extends JFrame implements ActionListener {
 			if(retorno == JFileChooser.APPROVE_OPTION){
 				File arquivo = new File(fc.getSelectedFile().getAbsolutePath());
 				Scanner entrada = null;
-
+				atual = arquivo;
 				try {
 					entrada = new Scanner(arquivo);
 					if(arquivo.isFile()){
@@ -97,7 +105,8 @@ public class editor extends JFrame implements ActionListener {
 			}
 
 		}
-		if (e.getSource() == salvar){
+
+		if (e.getSource() == salvarc){
 			JFileChooser fc = new JFileChooser();
 			fc.setCurrentDirectory(new File("."));
 			
@@ -119,8 +128,24 @@ public class editor extends JFrame implements ActionListener {
 				}
 			}
 		}
+
+		if (e.getSource() == salvar){
+				File arquivo;
+				PrintWriter saida = null;
+				arquivo = atual;
+				try{
+					saida = new PrintWriter(arquivo);
+					saida.println(area.getText());
+				}
+				catch (FileNotFoundException e1){
+					e1.printStackTrace();
+				}
+				finally{
+					saida.close();
+				}
+		}
 		if (e.getSource() == fechar){
-			System.exit(0);
+			editor.dispose();
 		}
 	}
 }

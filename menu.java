@@ -11,11 +11,12 @@ import javax.swing.JFrame;
 
 public class menu extends JFrame implements ActionListener{
 	
+	frame Menu;
 	JButton criararq;
 	
 	menu(){
 	
-	frame Menu = new frame();
+	Menu = new frame();
 	
 	JLabel introtop = new JLabel("Bem-vindo ao Trabalho 4 de LP II!");
 	introtop.setFont(new Font ("Arial", Font.PLAIN, 30));
@@ -38,7 +39,8 @@ public class menu extends JFrame implements ActionListener{
 @Override
 public void actionPerformed(ActionEvent e) {
 	if(e.getSource() == criararq) {
-		editor novo = new editor();
+		abas aba = new abas();
+		Menu.dispose();
 	}
 }
 
